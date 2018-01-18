@@ -63,7 +63,7 @@ After step #4, n will become n - 2. We must repeat steps 1 through 4 repeatedly 
 
 There are a few reasons why this method is optimal. Having the slowest people cross first will cause one of them to have to come back, effectively adding both C’s and D’s time cost to the total. Having either C or D cross with A will, again, cause both C’s and D’s time cost to be added to the total, because they will be crossing separately. There is just no other way to keep the time cost as low if we separate C and D.
 
-###Implementation
+### Implementation
 A list will be used as opposed to an array for this problem because we do not know the size of n from the start.
 
 Ask user for number of people and their speeds.
@@ -83,19 +83,23 @@ namespace MichelleHuynh_BridgeProblem
         {
             //initialize a list
             List<int> speeds_of_walkers = new List<int>();
+            
             //Gets user input on # of walkers + speeds of each
             Console.WriteLine("How many people?");
             int number_of_people = Convert.ToInt32(Console.ReadLine());
+            
             //Check for zero
             while (number_of_people == 0) {
                 Console.WriteLine("Obviously calculating the speed for zero people would be zero. \nEnter a proper number of people: ");
                 number_of_people = Convert.ToInt32(Console.ReadLine());
-            }  
+            }
+            
             //Check for negative
             while (number_of_people < 0) {
                 Console.WriteLine("You can't have negative people. Enter a proper number of people: ");
                 number_of_people = Convert.ToInt32(Console.ReadLine());
             }
+            
             //Add values to list + sort
             SetUpList(speeds_of_walkers, number_of_people);       
             int last_index = speeds_of_walkers.Count() - 1;
@@ -104,12 +108,15 @@ namespace MichelleHuynh_BridgeProblem
                 Console.WriteLine(speeds_of_walkers[i]);
             }
             Console.WriteLine("is " + CalcTotalTime(speeds_of_walkers, last_index) + " minutes.");
+            
         } // end main
+        
         //ASSUME: List is sorted from least to most
         static int CalcTotalTime(List<int> speeds, int lastIndex)
         {
             int numberOfPeople = lastIndex + 1;
             int subset_time_to_cross;
+            
             switch (numberOfPeople)
             {
                 case 0:
@@ -129,20 +136,23 @@ namespace MichelleHuynh_BridgeProblem
                     return subset_time_to_cross + CalcTotalTime(speeds, lastIndex - 2);
             }
         } //calctotaltime
+        
         static void SetUpList(List<int> speeds, int numberOfPeople) 
         {
             if (numberOfPeople == 0) {
                 Console.WriteLine("Zero people? Get out of here.");
                 return;
             }
-            //int index_counter = 0;
+            
             int people_counter = 1;
+            
             while (people_counter <= numberOfPeople) {
                 Console.WriteLine("Enter speed of person " + people_counter + ":");
                 speeds.Add(Convert.ToInt32(Console.ReadLine()));
                 people_counter++;
             }
             speeds.Sort();
+            
         } //end setuplist
     }
 }
